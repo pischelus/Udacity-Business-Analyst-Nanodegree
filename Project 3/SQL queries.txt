@@ -1,0 +1,65 @@
+/* Query 1: Top 10 artists who have written the most number of rock songs. */
+SELECT Artist.Name, COUNT(Track.TrackId) AS Songs
+FROM Artist
+JOIN Album
+ON Artist.ArtistId = Album.ArtistId
+JOIN Track
+ON Album.AlbumId = Track.AlbumId
+JOIN Genre
+ON Track.GenreId = Genre.GenreId
+WHERE Genre.name = 'Rock'
+GROUP BY Artist.name
+ORDER BY Songs DESC
+LIMIT 10;
+
+/* Query 2: Top 10 artists who have earned the most money. */
+SELECT Artist.name, SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity) AS EarnAmount
+FROM Artist
+JOIN Album
+ON Artist.ArtistId = Album.ArtistId
+JOIN Track
+ON Album.AlbumId = Track.AlbumId
+JOIN InvoiceLine
+ON Track.TrackId = InvoiceLine.TrackId
+GROUP BY Artist.Name
+ORDER BY EarnAmount DESC
+LIMIT 10;
+
+/* Query 3: Top 10 customers who bought tracks from Led Zeppelin and U2 and how much they spent. */
+SELECT Customer.LastName AS CustomerLastName, SUM(Invoice.Total) AS TotalSpent
+FROM Customer
+JOIN Invoice
+ON Invoice.CustomerId = Customer.CustomerId
+JOIN InvoiceLine
+ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+JOIN Track 
+ON InvoiceLine.TrackId = Track.TrackId
+JOIN Album
+ON Track.AlbumId = Album.AlbumId
+JOIN Artist 
+ON Album.ArtistId = Artist.ArtistId
+WHERE Artist.Name = 'Led Zeppelin' or 'U2'
+GROUP BY Customer.LastName
+ORDER BY TotalSpent DESC
+LIMIT 10;
+
+/* Query 4: Top 10 music genre in the USA based on the number of invoices. */
+SELECT Genre.Name, Invoice.BillingCountry, COUNT(*) AS NumberOfInvoices
+FROM Invoice
+JOIN InvoiceLine
+ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+JOIN Track
+ON InvoiceLine.TrackId = Track.TrackId
+JOIN Genre
+ON Track.GenreId = Genre.GenreId
+GROUP BY Genre.Name,Invoice.BillingCountry
+HAVING Invoice.BillingCountry='USA'
+ORDER BY NumberOfInvoices DESC
+LIMIT 10;
+
+
+
+
+
+
+
