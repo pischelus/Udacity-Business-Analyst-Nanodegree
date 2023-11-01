@@ -1,5 +1,5 @@
 # Udacity-Business-Analyst-Nanodegree
-Projects for my [Udacity Business Analyst Nanodegree]([https://www.udacity.com/course/business-analytics-nanodegree--nd098](https://www.udacity.com/course/business-analytics-nanodegree--nd098)).
+Projects for my [Udacity Business Analyst Nanodegree](https://www.udacity.com/course/business-analytics-nanodegree--nd098).
 
 ## Project 1: Interpret a Data Visualization
 
